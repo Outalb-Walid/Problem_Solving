@@ -1,17 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
         List<List<Integer>> result = new ArrayList<>();
         if (nums == null || nums.length < 4) {
             return result;
         }
-        
         // Trier le tableau pour utiliser efficacement les deux pointeurs
         Arrays.sort(nums);
-        
         // Parcourir chaque élément du tableau pour former des quadruplets
         for (int i = 0; i < nums.length - 3; i++) {
             // Éviter les doublons pour le premier élément du quadruplet
