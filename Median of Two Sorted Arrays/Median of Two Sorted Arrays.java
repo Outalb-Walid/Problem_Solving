@@ -1,37 +1,36 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        // Ensure nums1 is the smaller array
         if (nums1.length > nums2.length) {
             return findMedianSortedArrays(nums2, nums1);
         }
 
-        int m = nums1.length;
-        int n = nums2.length;
-        int low = 0, high = m;
+        int x = nums1.length;
+        int y = nums2.length;
+        int low = 0, high = x;
 
         while (low <= high) {
-            int partition1 = (low + high) / 2;
-            int partition2 = (m + n + 1) / 2 - partition1;
+            int partitionX = (low + high) / 2;
+            int partitionY = (x + y + 1) / 2 - partitionX;
 
-            int maxLeft1 = (partition1 == 0) ? Integer.MIN_VALUE : nums1[partition1 - 1];
-            int minRight1 = (partition1 == m) ? Integer.MAX_VALUE : nums1[partition1];
+            int maxX = (partitionX == 0) ? Integer.MIN_VALUE : nums1[partitionX - 1];
+            int maxY = (partitionY == 0) ? Integer.MIN_VALUE : nums2[partitionY - 1];
 
-            int maxLeft2 = (partition2 == 0) ? Integer.MIN_VALUE : nums2[partition2 - 1];
-            int minRight2 = (partition2 == n) ? Integer.MAX_VALUE : nums2[partition2];
+            int minX = (partitionX == x) ? Integer.MAX_VALUE : nums1[partitionX];
+            int minY = (partitionY == y) ? Integer.MAX_VALUE : nums2[partitionY];
 
-            if (maxLeft1 <= minRight1 && maxLeft2 <= minRight2) {
-                if ((m + n) % 2 == 0) {
-                    return ((double)Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2;
+            if (maxX <= minY && maxY <= minX) {
+                if ((x + y) % 2 == 0) {
+                    return ((double)Math.max(maxX, maxY) + Math.min(minX, minY)) / 2;
                 } else {
-                    return (double)Math.max(maxLeft1, maxLeft2);
+                    return (double)Math.max(maxX, maxY);
                 }
-            } else if (maxLeft1 > minRight2) {
-                high = partition1 - 1;
+            } else if (maxX > minY) {
+                high = partitionX - 1;
             } else {
-                low = partition1 + 1;
+                low = partitionX + 1;
             }
         }
 
-        throw new IllegalArgumentException("Input arrays are not sorted.");
+        throw new IllegalArgumentException();
     }
 }
